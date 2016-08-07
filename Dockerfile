@@ -1,5 +1,7 @@
-FROM quay.io/wunder/wunder-alpine-base
-MAINTAINER ilari.makela@wunderkraut.com
+FROM onnimonni/alpine-base
+MAINTAINER onni@keksi.io
+
+ARG PROJECT_REPO_NAME=onnimonni/docker-nginx
 
 ENV NGINX_VERSION=1.9.15 \
     PAGESPEED_VERSION=1.11.33.1 \
@@ -44,11 +46,11 @@ RUN set -x && \
     make && \
     make install && \
     cd ${SOURCE_DIR} && \
-    wget https://raw.githubusercontent.com/iler/alpine-nginx-pagespeed/master/patches/automatic_makefile.patch && \
-    wget https://raw.githubusercontent.com/iler/alpine-nginx-pagespeed/master/patches/libpng_cflags.patch && \
-    wget https://raw.githubusercontent.com/iler/alpine-nginx-pagespeed/master/patches/pthread_nonrecursive_np.patch && \
-    wget https://raw.githubusercontent.com/iler/alpine-nginx-pagespeed/master/patches/rename_c_symbols.patch && \
-    wget https://raw.githubusercontent.com/iler/alpine-nginx-pagespeed/master/patches/stack_trace_posix.patch && \
+    wget https://raw.githubusercontent.com/$PROJECT_REPO_NAME/master/patches/automatic_makefile.patch && \
+    wget https://raw.githubusercontent.com/$PROJECT_REPO_NAME/master/patches/libpng_cflags.patch && \
+    wget https://raw.githubusercontent.com/$PROJECT_REPO_NAME/master/patches/pthread_nonrecursive_np.patch && \
+    wget https://raw.githubusercontent.com/$PROJECT_REPO_NAME/master/patches/rename_c_symbols.patch && \
+    wget https://raw.githubusercontent.com/$PROJECT_REPO_NAME/master/patches/stack_trace_posix.patch && \
     cd ${SOURCE_DIR}/modpagespeed-${PAGESPEED_VERSION} && \
     patch -p1 -i ${SOURCE_DIR}/automatic_makefile.patch && \
     patch -p1 -i ${SOURCE_DIR}/libpng_cflags.patch && \
