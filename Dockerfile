@@ -126,10 +126,10 @@ RUN set -x && \
         --with-http_v2_module \
         --with-http_realip_module \
         # Geo module is nice for blocking/allowing certain IP addresses
-        --with-http_geo_module \
+        #--without-http_geo_module \
         # IP-hash module is useful with certain stateful backends
         # But we should use cookie based persistance instead
-        --with-http_upstream_ip_hash_module \
+        #--without-http_upstream_ip_hash_module \
 
         # Skip few modules which are not useful for us
         --without-http_autoindex_module \
