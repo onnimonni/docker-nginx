@@ -1,0 +1,5 @@
+# Ignore files we don't need in the build
+.git
+Dockerfile
+README.md
+LICENSE
