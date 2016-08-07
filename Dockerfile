@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 MAINTAINER onni@keksi.io
 
 ARG GITHUB_REPO_NAME=onnimonni/alpine-nginx
@@ -180,10 +180,3 @@ RUN set -x && \
 
 # Make our nginx.conf available on the container
 ADD conf/nginx.conf /etc/nginx/nginx.conf
-
-# Little impact in this image
-WORKDIR /app
-
-EXPOSE 80 443
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
