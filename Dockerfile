@@ -3,7 +3,7 @@ MAINTAINER onni@keksi.io
 
 ARG GITHUB_REPO_NAME=onnimonni/alpine-nginx
 
-ENV NGINX_VERSION=1.9.15 \
+ENV NGINX_VERSION=1.11.3 \
     PAGESPEED_VERSION=1.11.33.1 \
     SOURCE_DIR=/tmp/src \
     LIBPNG_LIB=libpng12 \
@@ -151,6 +151,12 @@ RUN set -x && \
         --http-log-path=/var/log/nginx/access.log \
         --error-log-path=/var/log/nginx/error.log \
         --pid-path=/var/run/nginx.pid \
+        --lock-path=/var/run/nginx/nginx.lock
+
+        # Define temp paths
+        --http-fastcgi-temp-path=/tmp/nginx/fastcgi
+        --http-proxy-temp-path=/tmp/nginx/proxy
+        --http-client-body-temp-path=/tmp/nginx/client_body
 
         # TODO: add redis module
 
