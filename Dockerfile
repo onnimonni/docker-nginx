@@ -163,8 +163,7 @@ RUN set -x && \
         --with-pcre-jit \
 
         --with-cc-opt="-fPIC -I /usr/include/apr-1" \
-        --with-ld-opt="-luuid -lapr-1 -laprutil-1 -licudata -licuuc -L${SOURCE_DIR}/modpagespeed-${PAGESPEED_VERSION}-beta/usr/lib -lpng12 -lturbojpeg -ljpeg" \
-        -j${NPROC} && \
+        --with-ld-opt="-luuid -lapr-1 -laprutil-1 -licudata -licuuc -L${SOURCE_DIR}/modpagespeed-${PAGESPEED_VERSION}-beta/usr/lib -lpng12 -lturbojpeg -ljpeg" && \
 
     # Build nginx with custom packages
     make -j${NPROC} && \
