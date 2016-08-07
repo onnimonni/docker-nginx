@@ -1,4 +1,4 @@
-FROM onnimonni/alpine-base
+FROM alpine:3.3
 MAINTAINER onni@keksi.io
 
 ARG GITHUB_REPO_NAME=onnimonni/alpine-nginx
@@ -50,25 +50,25 @@ RUN set -x && \
     # Download all needed custom packages
     ##
     # Nginx
-    wget -O- http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -zxv && \
+    wget -O- http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -zx && \
 
     # Pagespeed
-    wget -O- https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-beta.tar.gz | tar -zxv && \
+    wget -O- https://github.com/pagespeed/ngx_pagespeed/archive/v${PAGESPEED_VERSION}-beta.tar.gz | tar -zx && \
     # Psol for pagespeed
-    wget -O- https://dl.google.com/dl/linux/mod-pagespeed/tar/beta/mod-pagespeed-beta-${PAGESPEED_VERSION}-r0.tar.bz2 | tar -jxv && \
+    wget -O- https://dl.google.com/dl/linux/mod-pagespeed/tar/beta/mod-pagespeed-beta-${PAGESPEED_VERSION}-r0.tar.bz2 | tar -jx && \
     # Libpng for psol
-    wget -O- ftp://ftp.simplesystems.org/pub/libpng/png/src/${LIBPNG_LIB}/libpng-${LIBPNG_VERSION}.tar.gz | tar -zxv && \
+    wget -O- ftp://ftp.simplesystems.org/pub/libpng/png/src/${LIBPNG_LIB}/libpng-${LIBPNG_VERSION}.tar.gz | tar -zx && \
 
     # Naxsi
-    wget -O- https://github.com/nbs-system/naxsi/archive/${NAXSI_VERSION}.tar.gz | tar -zxv && \
+    wget -O- https://github.com/nbs-system/naxsi/archive/${NAXSI_VERSION}.tar.gz | tar -zx && \
     # PCRE for Naxsi
-    wget -O- http://downloads.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.gz | tar -zxv && \
+    wget -O- http://downloads.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.gz | tar -zx && \
 
     # Build libpng
     cd ${SOURCE_DIR}/libpng-${LIBPNG_VERSION} && \
     ./configure --build=$CBUILD --host=$CHOST --prefix=/usr --enable-shared --with-libpng-compat && \
-    make && \
-    make install && \
+    make -j${NPROC} && \
+    make install -j${NPROC} && \
 
     # Download patch files only needed for this build
     cd ${SOURCE_DIR} && \
